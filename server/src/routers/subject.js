@@ -40,6 +40,26 @@ router.get('/', auth, async (req, res) => {
         res.status(500).send(error);
     }
 });
+router.get('/user-subjects', auth, async (req, res) => {
+    try {
+        const { department, year, sem } = req.user;
+        
+        const subjects = await Subject.find({
+            departments: department,
+            year: year,
+            sem: sem
+        });
+
+        if (!subjects.length) {
+            return res.status(404).send({ error: 'No subjects found for your department, year and semester' });
+        }
+
+        res.send(subjects);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 router.patch('/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body);
