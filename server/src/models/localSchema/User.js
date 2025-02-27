@@ -57,6 +57,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: [1, 2, 3, 4, 5, 6, 7, 8]
     },
+    rollNo: {
+        type: String,
+        required: true,
+        unique: true
+    },
     tokens: [{
         token: {
             type: String,
@@ -69,6 +74,13 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+userSchema.virtual('caMarks', {
+    ref: 'CaMarks',
+    localField: 'rollNo',
+    foreignField: 'student_id'
+})
+
 
 // setting toJSON method
 userSchema.methods.toJSON = function () {

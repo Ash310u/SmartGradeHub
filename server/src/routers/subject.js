@@ -1,5 +1,5 @@
 import express from "express";
-import Subject from '../models/Subject.js';
+import Subject from '../models/localSchema/Subject.js';
 import auth from '../middleware/auth.js';
 
 const router = new express.Router();

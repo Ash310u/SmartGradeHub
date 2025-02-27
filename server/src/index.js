@@ -3,6 +3,8 @@ import cors from 'cors';
 import "./db/mongoose.js"
 import userRouter from './routers/user.js';
 import subjectRouter from './routers/subject.js';
+import teacherRouter from './routers/teacher.js';
+import marksRouter from './routers/marks.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,6 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/subject', subjectRouter);
+app.use('/api/teacher', teacherRouter);
+app.use('/api/marks', marksRouter);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

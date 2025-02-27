@@ -1,7 +1,7 @@
 import express from "express";
 import multer from 'multer';
 import sharp from 'sharp';
-import User from '../models/User.js';
+import User from '../models/localSchema/User.js';
 import auth from '../middleware/auth.js';
 
 const router = new express.Router()
@@ -53,7 +53,7 @@ router.get("/me", auth, async (req, res) => {
 
 router.patch('/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'age', 'password', 'email', 'department', 'year', 'sem']
+    const allowedUpdates = ['name', 'age', 'password', 'email', 'department', 'year', 'sem', 'rollNo']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update)) // shorthand arrow function
 
     if (!isValidOperation) {
