@@ -29,7 +29,7 @@ const Dashboard = () => {
     }, [userData]);
 
     return (
-        <div className="h-full flex bg-gradient-to-br from-sky-50 to-gray-100 overflow-hidden">
+        <div className="h-[80vh] flex bg-gradient-to-br from-sky-50 to-gray-100 overflow-hidden">
             <div className="w-2/7 bg-white/80 backdrop-blur-md p-6 overflow-y-auto shadow-lg
                           scrollbar-thin scrollbar-thumb-sky-400 scrollbar-track-gray-100/50
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full over">
