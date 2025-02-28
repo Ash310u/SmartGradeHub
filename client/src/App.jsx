@@ -1,13 +1,50 @@
-import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import Navbar from './components/Navbar';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setToken, setUserId } from './store/slices/authSlice';
 
 const App = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    
+    if (token && userId) {
+      dispatch(setToken(token));
+      dispatch(setUserId(userId));
+      setIsLoggedIn(true);
+      navigate('/dashboard', { replace: true });
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    const protectedRoutes = ['/dashboard'];
+    const currentPath = window.location.pathname;
+
+    if (!isLoggedIn && protectedRoutes.includes(currentPath)) {
+      navigate('/', { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
-    <div className='App'>
-      <Navbar />
+    <div className='App h-[100vh] overflow-hidden'>
+      {/* <div className='fixed top-0 left-0 w-full z-50'> */}
+        <Navbar />
+      {/* </div> */}
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={isLoggedIn ? <Dashboard /> : <Login />} />
+        <Route 
+          path="/dashboard" 
+          element={isLoggedIn ? <Dashboard /> : <Login />} 
+        />
       </Routes>
     </div>
   )

@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom"
 import NavLink from "./features/NavLink"
+import { useSelector } from "react-redux"
 
 const Navbar = () => {
-    // const token = useSelector(state => state.auth.token)
+    const token = useSelector(state => state.auth.token)
 
     const navLinks = [
         { path: '/dashboard', label: "Dashboard" },
     ]
 
     const content = navLinks.map((link) => {
-        // if (!token) {
-            // return null
-        // }
+        if (!token) {
+            return null
+        }
         return (
             <NavLink key={link.path} to={link.path}>
                 {link.label}
