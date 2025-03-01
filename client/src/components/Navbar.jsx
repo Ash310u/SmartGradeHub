@@ -7,6 +7,7 @@ const Navbar = () => {
 
     const navLinks = [
         { path: '/dashboard', label: "Dashboard" },
+        { path: '/profile', label: "Profile" }
     ]
 
     const content = navLinks.map((link) => {

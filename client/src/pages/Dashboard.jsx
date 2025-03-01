@@ -49,16 +49,7 @@ const Dashboard = () => {
                                 Semester: {subject.sem} | Year: {subject.year}
                             </p>
                             <button 
-                                onClick={() => {
-                                    const match = subject.pdf_url.match(/\/d\/(.+?)\/preview/);
-                                    const fileId = match ? match[1] : null;
-                                    if (fileId) {
-                                        setSelectedSubject({
-                                            googleDocId: fileId,
-                                            subjectCode: subject.subjectCode,
-                                        });
-                                    }
-                                }}
+                                onClick={() => setSelectedSubject(subject.pdf_url)}
                                 className="mt-3 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 
                                          transition-colors duration-300"
                             >

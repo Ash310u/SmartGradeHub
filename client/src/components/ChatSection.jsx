@@ -28,7 +28,7 @@ const ChatSection = ({ selectedSubject }) => {
             setMessages(prev => [...prev, userMessage]);
 
             // Get AI response
-            const response = await AiAssistant(messageText, selectedSubject?.googleDocId);
+            const response = await AiAssistant(messageText, selectedSubject);
 
             // Add AI response to chat
             const aiMessage = {

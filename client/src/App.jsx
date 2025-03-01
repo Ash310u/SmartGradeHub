@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken, setUserId } from './store/slices/authSlice';
+import Profile from './pages/Profile';
 
 const App = () => {
   const navigate = useNavigate();
@@ -19,14 +20,14 @@ const App = () => {
       dispatch(setToken(token));
       dispatch(setUserId(userId));
       setIsLoggedIn(true);
-      navigate('/dashboard', { replace: true });
+      // navigate('/dashboard', { replace: true });
     } else {
       setIsLoggedIn(false);
     }
   }, [dispatch, navigate]);
 
   useEffect(() => {
-    const protectedRoutes = ['/dashboard'];
+    const protectedRoutes = ['/dashboard', '/profile'];
     const currentPath = window.location.pathname;
 
     if (!isLoggedIn && protectedRoutes.includes(currentPath)) {
@@ -36,14 +37,16 @@ const App = () => {
 
   return (
     <div className='App h-[100vh] overflow-hidden'>
-      {/* <div className='fixed top-0 left-0 w-full z-50'> */}
-        <Navbar />
-      {/* </div> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={isLoggedIn ? <Dashboard /> : <Login />} />
         <Route 
           path="/dashboard" 
           element={isLoggedIn ? <Dashboard /> : <Login />} 
+        />
+        <Route 
+          path="/profile" 
+          element={isLoggedIn ? <Profile /> : <Login />} 
         />
       </Routes>
     </div>
